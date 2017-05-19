@@ -1,2 +1,3 @@
-# ams
-a swagger style api management system
+# K
+自管理K线图
+

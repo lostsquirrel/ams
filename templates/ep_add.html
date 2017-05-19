@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>操作添加</title>
+</head>
+<body>
+<form action="/doc/{{doc_id}}/endpoint" method="post">
+    <input type="hidden" name="api_id" value="{{doc_id}}">
+    <table>
+        <tr>
+            <th>请求地址</th>
+            <td><input type="text" name="path_url" /></td>
+            <td>可以重复，但地址和操作组合必须唯一</td>
+        </tr>
+        <tr>
+            <th>请求方法</th>
+            <td>
+                <select name="operation" id="operation">
+                    <option value="get">get</option>
+                    <option value="put">put</option>
+                    <option value="post">post</option>
+                    <option value="delete">delete</option>
+                    <option value="options">options</option>
+                    <option value="head">head</option>
+                    <option value="patch">patch</option>
+                </select>
+            </td>
+            <td>地址和操作组合必须唯一</td>
+        </tr>
+        <tr>
+            <th>简述</th>
+            <td><input type="text" name="summary"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>描述</th>
+            <td><input type="text" name="description"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>标签</th>
+            <td><input type="text" name="tags"></td>
+            <td>swagger 会根据标签分组</td>
+        </tr>
+        <tr>
+            <th colspan="2"><input type="submit" value="添加"></th>
+        </tr>
+    </table>
+
+</form>
+</body>
+</html>

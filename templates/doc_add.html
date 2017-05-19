@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口添加</title>
+</head>
+<body>
+<form action="/doc" method="post">
+    <table>
+        <tr>
+            <th>schemes</th>
+            <td>
+                <select name="schemes">
+                    <option value="http">http</option>
+                    <option value="https">https</option>
+                    <option value="ws">ws</option>
+                    <option value="wss">wss</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>接口主机</th>
+            <td><input type="text" name="host"></td>
+        </tr>
+        <tr>
+            <th>接口根路径</th>
+            <td><input type="text" name="base_path" /></td>
+        </tr>
+        <tr><th>接口名称</th><td>
+            <input type="text" name="title" />
+        </td></tr>
+        <tr><th>接口描述</th><td>
+            <input type="text" name="description" />
+        </td></tr>
+        <tr><th>接口版本</th><td>
+            <input type="text" name="version" />
+        </td></tr>
+        <tr><th>默认响应类型</th><td>
+            <select name="produces" id="produces">
+                <option>application/json</option>
+                <option>application/xml</option>
+                <option>application/x-www-form-urlencoded</option>
+                <option>multipart/form-data</option>
+                <option>text/plain; charset=utf-8</option>
+                <option>text/html</option>
+                <option>application/pdf</option>
+                <option>image/png</option>
+            </select>
+        </td></tr>
+        <tr> <th rowspan="2">
+            <input type="submit" value="添加" />
+        </th></tr>
+    </table>
+
+</form>
+</body>
+</html>
