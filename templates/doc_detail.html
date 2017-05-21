@@ -21,15 +21,15 @@
         <th>操作</th>
     </tr>
 
-    {% for ep in eps %}
+    {% for op in ops %}
     <tr>
-        {% block ep %}
-        <td>{{ep.path_url}}</td>
-        <td>{{ep.operation}}</td>
-        <td>{{ep.summary}}</td>
-        <td>{{ep.description}}</td>
-        <td>{{ep.tags}}</td>
-        <td><a href="/endpoint/{{ep.id}}">查看</a></td>
+        {% block op %}
+        <td>{{op.path_url}}</td>
+        <td>{{op.operation}}</td>
+        <td>{{op.summary}}</td>
+        <td>{{op.description}}</td>
+        <td>{{op.tags}}</td>
+        <td><a href="/operation/{{op.id}}">查看</a></td>
         {% end %}
     </tr>
     {% end %}

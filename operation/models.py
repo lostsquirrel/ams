@@ -3,7 +3,7 @@
 from simpletor import torndb
 
 
-class EndPoint(torndb.Row):
+class Operation(torndb.Row):
     '''
     EndPoint
     '''
@@ -27,7 +27,7 @@ class EndPoint(torndb.Row):
 #         self.name = None
 #         self.status = None  # NULL 初始， 1, 默认 9，删除
 
-class EndPointDAO:
+class OperationDAO:
     '''
     ItemDAO DAO
     '''
@@ -114,7 +114,7 @@ class EndPointDAO:
     #     return sql
     #
     @torndb.select
-    def find_eps(self, doc_id):
+    def find_ops_by_doc(self, doc_id):
         sql = '''
             SELECT 
             o.operation, 
@@ -131,7 +131,16 @@ class EndPointDAO:
             '''
         return sql
 
-epDAO = EndPointDAO()
+    @torndb.get
+    def find_op(self, op_id):
+        sql = '''
+        SELECT po.id, operation, path_id, summary, description, p.api_id AS doc_id
+        FROM path_operation po
+        JOIN paths p ON po.path_id = p.id AND po.id = %s
+        '''
+        return sql
+
+op_dao = OperationDAO()
 
 # class NodeDAO:
 #

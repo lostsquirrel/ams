@@ -158,3 +158,6 @@ def seconds2str(time_seconds):
 
 def dict_slice(d, *l):
     return {k:d[k] for k in l if k in d}
+
+def get_request_param(handler):
+    return  { k: handler.get_argument(k) for k in handler.request.arguments }

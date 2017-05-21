@@ -34,13 +34,5 @@ class ParamAddBindHandler(application.RequestHandler):
 
     def post(self, doc_id, op_id):
         param = get_request_param(self)
-        param['doc_id'] = doc_id
-        param['op_id'] = op_id
-        if len(param.get('maximum')) == 0:
-            param['maximum'] = None
-        if len(param.get('minimum')) == 0:
-            param['minimum'] = None
-
         param_service.save_bind_param(param)
-        manager__format = '/doc/{0}/param/manager'.format(doc_id)
-        self.redirect(manager__format)
+        self.redirect('/doc/%s/param/manager'.format(doc_id))

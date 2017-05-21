@@ -2,24 +2,32 @@
 
 from simpletor.torndb import transactional
 from  simpletor.utils import dict_slice
-from endpoint.models import epDAO
+from operation.models import op_dao
 
-def get_eps(ep_id):
-    return epDAO.find_eps(ep_id)
+
+def get_op(op_id):
+    return op_dao.find_op(op_id)
+
+
+def get_ops_by_doc(doc_id):
+    return op_dao.find_ops_by_doc(doc_id)
+
 
 @transactional
-def save_ep(item):
+def save_op(item):
     u =  dict_slice(item, 'path_url', 'api_id')
-    ep_id = epDAO.save_url(**u)
+    ep_id = op_dao.save_url(**u)
+
     o = dict_slice(item, 'operation', 'summary', 'description')
     o['path_id'] = ep_id
-    op_id = epDAO.save_operation(**o)
+    op_id = op_dao.save_operation(**o)
+
     item['operation_id'] = op_id
     tags = item.get('tags')
     if tags is not None and len(tags) > 0:
         for tag in tags.split(','):
             t = dict(operation_id=op_id, tag=tag)
-            epDAO.save_tag(**t)
+            op_dao.save_tag(**t)
 
 # @transactional
 # def set_default(item_id):

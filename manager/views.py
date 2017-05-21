@@ -6,8 +6,9 @@ Created on 2015年5月14日
 '''
 import tornado
 from simpletor import application
+from simpletor.utils import get_request_param
 import manager.services as doc_service
-from endpoint import services as ep_service
+from operation import services as op_service
 
 @application.RequestMapping("/doc/manager")
 class DocMangerHandler(application.RequestHandler):
@@ -20,7 +21,7 @@ class DocAddHandler(application.RequestHandler):
         self.render('doc_add.html')
 
     def post(self, *args, **kwargs):
-        param = { k: self.get_argument(k) for k in self.request.arguments }
+        param = get_request_param(self)
         doc_service.save_doc(param)
         self.redirect('/doc/manager')
 
@@ -28,8 +29,8 @@ class DocAddHandler(application.RequestHandler):
 class DocDetailHandler(application.RequestHandler):
     def get(self, doc_id):
         doc = doc_service.get_doc(doc_id)
-        eps = ep_service.get_eps(doc_id)
-        self.render('doc_detail.html', item=doc, eps=eps)
+        ops = op_service.get_ops_by_doc(doc_id)
+        self.render('doc_detail.html', item=doc, ops=ops)
 
 @application.RequestMapping("/")
 class IndexHandler(application.RequestHandler):

@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+
 from simpletor.torndb import transactional
 from manager.models import docDAO
 

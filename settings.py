@@ -6,7 +6,7 @@ Created on 2013-3-26
 """
 import os
 
-installed_apps = ['manager', 'api', 'endpoint']
+installed_apps = ['manager', 'api', 'operation', 'param', 'resp']
 
 template_dir = os.path.join(os.path.dirname(__file__), "templates")
 static_dir = os.path.join(os.path.dirname(__file__), "static")

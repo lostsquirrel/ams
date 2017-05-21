@@ -87,7 +87,7 @@ class Connection(object):
         if password is not None:
             args["passwd"] = password
 
-        # We accept a endpoint to a MySQL socket file or a host(:port) string
+        # We accept a operation to a MySQL socket file or a host(:port) string
         if "/" in host:
             args["unix_socket"] = host
         else:
