@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>响应添加</title>
+</head>
+<body>
+<form action="/doc/{{doc_id}}/operation/{{operation.id}}/resp" method="post">
+    <table >
+        <tr>
+            <th>响应码</th>
+            <td>
+                <input type="text" name="code">
+            </td>
+            <td>
+                <p>可以是 任意有效的http 响应码或 default</p>
+                <p>default: 用于没有定义的所有http</p>
+            </td>
+        </tr>
+        <tr>
+            <th>类型</th>
+            <td><input type="text" name="type"></td>
+            <td>
+                <p>返回模型的类型，</p>
+                <p>object: 表示返回定义模型</p>
+                <p>array: 表示返回定义模型的列表</p>
+            </td>
+        </tr>
+        <tr>
+            <th>描述</th>
+            <td><input type="text" name="description"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="添加">
+            </td>
+        </tr>
+
+    </table>
+</form>
+</body>
+</html>

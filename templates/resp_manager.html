@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>响应模型管理</title>
+</head>
+<body>
+<table border="1" cellspacing="0">
+<tr>
+    <th>属性名</th>
+    <th>类型</th>
+    <th>描述</th>
+    <th>格式</th>
+    <th>操作</th>
+</tr>
+{% for p in props %}
+{% block p %}
+<tr>
+    <td>{{p.name}}</td>
+    <td>{{p.type}}</td>
+    <td>{{p.description}}</td>
+    <td>{{p.format}}</td>
+    <td>{{p.id}}</td>
+</tr>
+{% end %}
+{% end %}
+</table>
+</body>
+</html>

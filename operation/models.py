@@ -5,7 +5,7 @@ from simpletor import torndb
 
 class Operation(torndb.Row):
     '''
-    EndPoint
+    Operation
     '''
     def __init__(self):
         self.id = None

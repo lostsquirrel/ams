@@ -27,6 +27,7 @@ class ParamDAO(object):
             type,
             required,
             description,
+            format,
             `default`,
             minimum,
             maximum
@@ -36,6 +37,7 @@ class ParamDAO(object):
             %(type)s,
             %(required)s,
             %(description)s,
+            %(format)s,
             %(default)s,
             %(minimum)s,
             %(maximum)s
@@ -54,11 +56,13 @@ class ParamDAO(object):
     def find_operation_parameters(self, op_id):
         sql = '''
             SELECT 
+                p.id,
                 p.source,
                 p.name,
                 p.type,
                 p.required,
                 p.description,
+                p.format,
                 p.default,
                 p.minimum,
                 p.maximum
@@ -77,12 +81,48 @@ class ParamDAO(object):
             op.type,
             op.required,
             op.description,
+            op.format,
             op.default,
             op.minimum,
             op.maximum
             FROM operation_parameter op 
             JOIN path_operation o on op.operation_id = o.id
             JOIN paths p on p.path_id = o.path_id AND p.api_id = %s            
+        '''
+        return sql
+
+    @torndb.update
+    def update_param(self, **item):
+        sql = '''
+        UPDATE parameters SET
+        source = %(source)s,
+        `name` = %(name)s,
+        type = %(type)s,
+        required = %(required)s,
+        format = %(format)s,
+        description = %(description)s,
+        `default` = %(default)s, 
+        minimum = %(minimum)s,
+        maximum = %(maximum)s
+        WHERE id = %(id)s
+        '''
+        return sql
+
+    @torndb.get
+    def find_param(self, param_id):
+        sql = '''
+        SELECT
+         id,
+        source,
+        `name`,
+        type,
+        required,
+        format,
+        description,
+        `default`,
+        minimum,
+        maximum
+        FROM parameters WHERE id = %s
         '''
         return sql
 param_dao = ParamDAO()

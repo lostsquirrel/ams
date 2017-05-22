@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加接口参数</title>
+</head>
+<body>
+<hr />
+<form action="/operation/{{op_id}}/param/{{param.id}}" method="post">
+    <table>
+        <tr>
+            <th>参数名称</th>
+            <td><input type="text" name="name" value="{{param.name}}"></td>
+            <td>参数字段名，标识符</td>
+        </tr>
+        <tr>
+            <th>参数位置</th>
+            <td>
+                <select name="source" id="source">
+                    <option value="query" >query</option>
+                    <option value="path">path</option>
+                </select>
+            </td>
+            <td>
+                <p>path: url中的?前的参数</p>
+                <p>query: queryString中的参数, url中？后的参数，或post-form参数，</p>
+                <p>文件和请求体参数，后续添加</p>
+            </td>
+        </tr>
+
+        <tr>
+            <th>参数类型</th>
+            <td>
+                <select name="type" id="type">
+                    <option value="string">string</option>
+                    <option value="integer">integer</option>
+                    <option value="number">number</option>
+                    <option value="boolean">boolean</option>
+                </select>
+            </td>
+            <td>
+                <p>integer 有两种 format int32 int64</p>
+                <p>number float double</p>
+                <p>string 无格式，byte, binary, date, date-time, password</p>
+            </td>
+        </tr>
+
+        <tr>
+            <th>参数格式</th>
+            <td><input type="text" name="format" value="{{param.format}}"></td>
+            <td>参见参数类型说明, 后续考虑做成联动</td>
+        </tr>
+        <tr>
+            <th>参数是否必传</th>
+            <td>
+                 <select name="required" id="required">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <th>参数描述</th>
+            <td><input type="text" name="description" value="{{param.description}}"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>参数默认值</th>
+            <td><input type="text" name="default" value="{{param.default}}"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>参数最大值</th>
+            <td><input type="text" name="maximum" value="{{param.maximum}}"></td>
+            <td>仅用于数字</td>
+        </tr>
+        <tr>
+            <th>参数最小值</th>
+            <td><input type="text" name="minimum" value="{{param.minimum}}"></td>
+            <td>仅用于数字</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="修改">
+            </td>
+        </tr>
+    </table>
+
+</form>
+<script type="text/javascript">
+    function setValue(eid, value) {
+        document.getElementById(eid).value = value;
+    }
+    setValue('source', "{{param.source}}")
+    setValue('type', "{{param.type}}")
+    setValue('required', "{{param.required}}")
+</script>
+</body>
+</html>

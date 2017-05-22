@@ -8,10 +8,62 @@
 <h2>请求参数</h2>
 <a href="/doc/{{operation.doc_id}}/param/{{operation.id}}">添加参数</a>
 <hr>
-<table></table>
-
+<table border="1" cellspacing="0">
+    <tr>
+        <th>参数来源</th>
+        <th>参数名称</th>
+        <th>参数类型</th>
+        <th>是否必要</th>
+        <th>参数描述</th>
+        <th>参数格式</th>
+        <th>默认值</th>
+        <th>最小值</th>
+        <th>最大值</th>
+        <th>操作</th>
+    </tr>
+    {% for p in params %}
+    <tr>
+        {% block p %}
+            <td>{{p.source}}</td>
+            <td>{{p.name}}</td>
+            <td>{{p.type}}</td>
+            <td>{% if p.required == 1 %} 是 {% else %}否 {% end %}</td>
+            <td>{{p.description}}</td>
+            <td>{{p.format}}</td>
+            <td>{{p.default}}</td>
+            <td>{{p.minimum}}</td>
+            <td>{{p.maximum}}</td>
+            <td><a href="/operation/{{operation.id}}/param/{{p.id}}">编辑</a></td>
+        {% end %}
+    </tr>
+    {% end %}
+</table>
 <h2>请求响应</h2>
-<hr>
-<table></table>
+<a href="/doc/{{operation.doc_id}}/operation/{{operation.id}}/resp">添加响应</a>
+<hr >
+
+<table border="1" cellspacing="0">
+<tr>
+    <th>ID</th>
+    <th>响应码</th>
+    <th>响应对象类型</th>
+    <th>描述</th>
+    <th>操作</th>
+</tr>
+{% for r in resp %}
+    {% block r %}
+    <tr>
+        <td>{{r.id}}</td>
+        <td>{{r.code}}</td>
+        <td>{{r.type}}</td>
+        <td>{{r.description}}</td>
+        <td>
+            <a href="/doc/{{operation.doc_id}}/operation/{{operation.id}}/resp/{{r.id}}">编辑</a>
+            <a href="/doc/{{operation.doc_id}}/operation/{{operation.id}}/resp/{{r.id}}/manager">查看</a>
+        </td>
+    </tr>
+    {% end %}
+{% end %}
+    </table>
 </body>
 </html>

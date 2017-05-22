@@ -42,5 +42,29 @@ class ParamAddBindHandler(application.RequestHandler):
             param['minimum'] = None
 
         param_service.save_bind_param(param)
-        manager__format = '/doc/{0}/param/manager'.format(doc_id)
+        manager__format = '/operation/{0}'.format(op_id)
+        self.redirect(manager__format)
+
+
+@application.RequestMapping("/operation/([0-9]+)/param/([0-9]+)")
+class ParamEditHandler(application.RequestHandler):
+    def get(self, op_id, param_id, *args, **kwargs):
+        param = param_service.get_param(param_id)
+        self.render('param_edit.html', op_id=op_id, param=param)
+
+    def post(self, op_id, param_id, *args, **kwargs):
+        param = get_request_param(self)
+        param['id'] = param_id
+        param['operation_id'] = op_id
+        param_type = param['type']
+        isNum = 'integer' == param_type or 'number' == param_type
+        maximum = param.get('maximum')
+        if isNum or len(maximum) == 0 or 'None' == maximum:
+            param['maximum'] = None
+        minimum = param.get('minimum')
+        if isNum or len(minimum) == 0 or 'None' == minimum:
+            param['minimum'] = None
+
+        param_service.update_param(param)
+        manager__format = '/operation/{0}'.format(op_id)
         self.redirect(manager__format)
