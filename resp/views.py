@@ -40,24 +40,26 @@ class RespEditHandler(application.RequestHandler):
 
 # 响应详情
 @application.RequestMapping("/doc/([0-9]+)/operation/([0-9]+)/resp/([0-9]+)/manager")
-class RespEditHandler(application.RequestHandler):
+class RespDetailHandler(application.RequestHandler):
     def get(self, doc_id, op_id, resp_id, *args, **kwargs):
         resp = resp_service.get_resp(resp_id)
         model_id = resp.response_model_id
         model = None
-        model_props = None
+        model_props = []
         if model_id is not None:
             model = resp_service.get_resp_model(model_id)
             model_props = resp_service.get_model_props(model.model_id)
 
         wrapper = None
-        wrapper_props = None
+        wrapper_props = []
         wrapper_id = resp.wrapper_id
         if wrapper_id is not None:
             wrapper = resp_service.get_resp_model(wrapper_id)
-            wrapper_props = resp_service.get_model_props(wrapper_id)
+            wrapper_props = resp_service.get_model_props(wrapper.model_id)
 
-        self.render('resp_manager.html', resp=resp, model=model, wrapper=wrapper, model_props=model_props, wrapper_props=wrapper_props)
+        self.render('resp_manager.html', doc_id=doc_id,
+                    op_id=op_id,
+                    resp=resp, model=model, wrapper=wrapper, model_props=model_props, wrapper_props=wrapper_props)
 
 
 # 添加响应模型属性

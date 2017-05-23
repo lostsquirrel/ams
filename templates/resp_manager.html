@@ -5,6 +5,33 @@
     <title>响应模型管理</title>
 </head>
 <body>
+<div>
+    <p>响应码: {{resp.code}}</p>
+    <p>响应对象类型: {{resp.type}}</p>
+    <p>响应描述: {{resp.description}}</p>
+</div>
+<hr>
+
+<h2>包装类</h2>
+<p>如果有包装类，响应对象最终为包装类，包装类data属性为 响应模型</p>
+<p>暂定包装类只能是object</p>
+{% if wrapper is None %}
+<form action="/model" method="post">
+    <input type="hidden" name="resp_id" value="{{resp.id}}">
+    <input type="hidden" name="type" value="object">
+    <input type="hidden" name="doc_id" value="{{doc_id}}">
+    <input type="hidden" name="op_id" value="{{op_id}}">
+    <input type="hidden" name="is_wrapper" value="True">
+    <input type="submit" value="添加包装模型">
+</form>
+{% else %}
+<p>包装类名称: {{wrapper.name}}
+
+</p>
+<a href="/doc/{{doc_id}}/operation/{{op_id}}/resp/{{resp.id}}/model/{{wrapper.model_id}}/prop">添加包装类模型属性</a>
+{% end %}
+<p>&nbsp;</p>
+<p>属性列表....</p>
 <table border="1" cellspacing="0">
 <tr>
     <th>属性名</th>
@@ -13,16 +40,82 @@
     <th>格式</th>
     <th>操作</th>
 </tr>
-{% for p in props %}
-{% block p %}
-<tr>
-    <td>{{p.name}}</td>
-    <td>{{p.type}}</td>
-    <td>{{p.description}}</td>
-    <td>{{p.format}}</td>
-    <td>{{p.id}}</td>
-</tr>
+{% for p in wrapper_props %}
+    {% block p %}
+    <tr>
+        <td>{{p.name}}</td>
+        <td>{{p.type}}</td>
+        <td>{{p.description}}</td>
+        <td>{{p.format}}</td>
+        <td><a href="/doc/{{doc_id}}/operation/{{op_id}}/resp/{{resp.id}}/model/{{wrapper.model_id}}/prop/{{p.id}}">编辑</a></td>
+    </tr>
+    {% end %}
 {% end %}
+</table>
+
+<hr>
+<h2>响应模型</h2>
+{% if model is None %}
+<form action="/model" method="post">
+    <input type="hidden" name="resp_id" value="{{resp.id}}">
+    <input type="hidden" name="doc_id" value="{{doc_id}}">
+    <input type="hidden" name="op_id" value="{{op_id}}">
+    <table>
+        <tr>
+            <th>模型名称：</th>
+            <td><input type="text" name="name" ></td>
+            <td>模型类名，标识符</td>
+        </tr>
+
+        <tr>
+            <th>模型类型</th>
+            <td>
+                <select name="type" id="type">
+                    <option value="object">object</option>
+                    <option value="array">array</option>
+                </select>
+            </td>
+            <td>
+                <p>
+
+                </p>
+            </td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">
+                <input type="submit" value="添加响应模型">
+            </td>
+        </tr>
+
+    </table>
+</form>
+{% else %}
+<p>包装类名称: {{model.name}}
+
+</p>
+<a href="/doc/{{doc_id}}/operation/{{op_id}}/resp/{{resp.id}}/model/{{model.model_id}}/prop">添加响应类模型属性</a>
+{% end %}
+
+<p>属性列表</p>
+<table border="1" cellspacing="0">
+<tr>
+    <th>属性名</th>
+    <th>类型</th>
+    <th>描述</th>
+    <th>格式</th>
+    <th>操作</th>
+</tr>
+{% for p in model_props %}
+    {% block p %}
+    <tr>
+        <td>{{p.name}}</td>
+        <td>{{p.type}}</td>
+        <td>{{p.description}}</td>
+        <td>{{p.format}}</td>
+        <td><a href="/doc/{{doc_id}}/operation/{{op_id}}/resp/{{resp.id}}/model/{{wrapper.model_id}}/prop/{{p.id}}">编辑</a></td>
+    </tr>
+    {% end %}
 {% end %}
 </table>
 </body>

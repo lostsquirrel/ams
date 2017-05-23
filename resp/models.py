@@ -44,7 +44,7 @@ class RespDAO(object):
     @torndb.get
     def find_resp_model(self, model_id):
         sql = '''
-        SELECT id, type, model_id, wrapper_id FROM response_model WHERE id = %s
+        SELECT id, name, type, model_id FROM response_model WHERE id = %s
         '''
         return sql
 
@@ -56,7 +56,8 @@ class RespDAO(object):
             r.code,
             r.type,
             r.description,
-            r.response_model_id
+            r.response_model_id,
+            r.wrapper_id
             FROM responses r
             WHERE r.id = %s
         '''
@@ -141,6 +142,20 @@ class RespDAO(object):
         format = %(format)s,
         description = %(description)s,
         WHERE id = %(id)s
+        '''
+        return sql
+
+    @torndb.update
+    def bind_model(self, **item):
+        sql = '''
+        UPDATE responses SET response_model_id =  %(model_id)s WHERE id = %(resp_id)s
+        '''
+        return sql
+
+    @torndb.update
+    def bind_wrapper(self, **item):
+        sql = '''
+        UPDATE responses SET wrapper_id = %(model_id)s WHERE id = %(resp_id)s
         '''
         return sql
 

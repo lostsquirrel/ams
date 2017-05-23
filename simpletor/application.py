@@ -43,6 +43,7 @@ class RequestHandler(tornado.web.RequestHandler):
     def __init__(self, application, request, **kwargs):
         super(RequestHandler, self).__init__(application, request, **kwargs)
         self.errors = dict()
+        self.params = { k: self.get_argument(k) for k in self.request.arguments }
 
     def set_current_user(self, user):
         user = json.dumps(user)

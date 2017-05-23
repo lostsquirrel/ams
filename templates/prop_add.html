@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>添加属性</title>
+</head>
+<body>
+<form method="post">
+    <table>
+        <tr>
+            <th>属性名（标识符）</th>
+            <td><input type="text" name="name"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>属性类型</th>
+            <td>
+                <select name="type" id="type">
+                    <option value="string">string</option>
+                    <option value="integer">integer</option>
+                    <option value="number">number</option>
+                    <option value="boolean">boolean</option>
+                </select>
+            </td>
+            <td>
+                <p>暂不支持object类型，后续考虑支持</p>
+                 <p>integer 有两种 format int32 int64</p>
+                <p>number float double</p>
+                <p>string 无格式，byte, binary, date, date-time, password</p>
+            </td>
+        </tr>
+
+        <tr>
+            <th>参数格式</th>
+            <td><input type="text" name="format"></td>
+            <td>参见参数类型说明, 后续考虑做成联动</td>
+        </tr>
+        <tr>
+            <th>参数描述</th>
+            <td><input type="text" name="description"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="添加">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
