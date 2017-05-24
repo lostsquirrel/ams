@@ -20,6 +20,12 @@ class PropAddHandler(application.RequestHandler):
         prop_service.save_prop(self.params)
         self.redirect('/doc/{0}/operation/{1}/resp/{2}/manager'.format(doc_id, op_id, resp_id))
 
+@application.RequestMapping("/model/([0-9]+)/prop/manager")
+class PropManageHandler(application.RequestHandler):
+    def get(self, model_id, *args, **kwargs):
+        props = prop_service.get_props_by_model(model_id)
+        self.render('prop_manage.html', props=props, model_id=model_id)
+
 @application.RequestMapping("/doc/([0-9]+)/operation/([0-9]+)/resp/([0-9]+)/model/([0-9]+)/prop/([0-9]+)")
 class PropEditHandler(application.RequestHandler):
     def get(self, doc_id, op_id, resp_id, model_id, prop_id, *args, **kwargs):

@@ -64,19 +64,7 @@ class RespDAO(object):
 
         return sql
 
-    @torndb.select
-    def find_props_by_model(self, model_id):
-        sql = '''
-        SELECT id,
-        `name`,
-        type,
-        format,
-        description,
-        model_id
-        FROM response_model_prop
-        WHERE model_id = %s
-        '''
-        return sql
+
 
     @torndb.insert
     def save_resp(self, **item):

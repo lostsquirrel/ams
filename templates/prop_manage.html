@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>模型属性</title>
+</head>
+<body>
+<p>属性列表</p>
+<table border="1" cellspacing="0">
+<tr>
+    <th>属性名</th>
+    <th>类型</th>
+    <th>描述</th>
+    <th>格式</th>
+    <th>操作</th>
+</tr>
+{% for p in props %}
+    {% block p %}
+    <tr>
+        <td>{{p.name}}</td>
+        <td>{{p.type}}</td>
+        <td>{{p.description}}</td>
+        <td>{{p.format}}</td>
+        <td><a href="#">编辑</a></td>
+    </tr>
+    {% end %}
+{% end %}
+</table>
+</body>
+</html>

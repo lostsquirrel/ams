@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>模型管理</title>
+    <style>
+        form {
+            display: inline;
+        }
+        form input[type="submit"] {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<form action="/model" method="get">
+    {% if resp_id is not None %}
+    <input type="hidden" name="resp_id" value="{{resp_id}}">
+    {% end %}
+    {% if is_wrapper is not None %}
+    <input type="hidden" name="is_wrapper" value="True">
+    {% end %}
+    <input type="submit" value="添加">
+</form>
+<hr>
+<p>&nbsp;</p>
+<table border="1" cellspacing="0">
+<tr>
+    <th>名称</th>
+    <th>类型</th>
+    <th>操作</th>
+</tr>
+{% for m in models%}
+    {% block  m%}
+    <tr>
+        <td>{{m.name}}</td>
+        <td>{{m.type}}</td>
+        <td>
+            <span><a href="/model/{{m.id}}/prop/manager">查看</a></span>
+            <span><a href="/model/{{m.id}}">编辑</a></span>
+            {% if resp_id is not None %}
+            <form action="" method="post">
+                <input type="hidden" name="resp_id" value="{{resp_id}}">
+                {% if is_wrapper is not None %}
+                <input type="hidden" name="is_wrapper" value="True">
+                {% end %}
+                <input type="submit" value="选择">
+            </form>
+            {% end %}
+        </td>
+    </tr>
+    {% end%}
+{% end %}
+</table>
+</body>
+</html>

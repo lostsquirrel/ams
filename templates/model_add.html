@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>添加或编辑</title>
+    <script type="text/javascript" src="/static/js/common.js"></script>
+</head>
+<body>
+<form action="/model" method="post">
+    {% try %}
+        {% if resp_id is not None  %}
+            <input type="hidden" id="resp_id" name="resp_id" value="{{resp_id}}">
+        {% end %}
+    {% except %}
+    {% end %}
+    {% try %}
+        {% if model.id is not None  %}
+            <input type="hidden" id="id" name="id" value="{{model.id}}">
+        {% end %}
+    {% except %}
+    {% end %}
+
+    {% try %}
+    {% if is_wrapper is not None  %}
+    <input type="hidden" id="is_wrapper" name="is_wrapper" value="{{is_wrapper}}">
+    {% end %}
+    {% except %}
+    {% end %}
+    <table>
+        <tr>
+            <th>模型名称：</th>
+            <td><input type="text" id="name" name="name" ></td>
+            <td>模型类名，标识符</td>
+        </tr>
+
+        <tr>
+            <th>模型类型</th>
+            <td>
+                <select name="type" id="type">
+                    <option value="object">object</option>
+                    <option value="array">array</option>
+                </select>
+            </td>
+            <td>
+                <p>
+
+                </p>
+            </td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">
+                <input type="submit" value="保存">
+            </td>
+        </tr>
+
+    </table>
+</body>
+
+<script type="text/javascript">
+    {% try %}
+    {% if model is not None  %}
+    var model = Object()
+    model.name = "{{model.name}}"
+    model.id = {{model.id}}
+    model.type = "{{model.type}}"
+    refillForm(model)
+    {% end %}
+    {% except %}
+    {% end %}
+</script>
+</html>

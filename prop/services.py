@@ -12,6 +12,9 @@ def save_prop(item):
 def get_prop(prop_id):
     return prop_dao.find_prop(prop_id)
 
+def get_props_by_model(model_id):
+    return prop_dao.find_props_by_model(model_id)
+
 @transactional
 def update_prop(item):
     prop_dao.update_prop(**item)

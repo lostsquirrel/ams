@@ -17,10 +17,6 @@ def get_resp_model(model_id):
     return resp_dao.find_resp_model(model_id)
 
 
-def get_model_props(model_id):
-    return resp_dao.find_props_by_model(model_id)
-
-
 def get_resp_by_operation_with_model_prop(op_id):
     rps = resp_dao.find_resp_by_operation(op_id)
     resp = list()
