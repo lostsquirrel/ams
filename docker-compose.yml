@@ -1,10 +1,7 @@
 version: "2"
 services:
     worker:
-        build:
-            context: .
         image: registry.cn-hangzhou.aliyuncs.com/lisong/ams:${VERSION}
-
         networks:
             - db
         external_links:
