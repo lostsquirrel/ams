@@ -76,9 +76,11 @@ def get_doc_swagger_json(doc_id):
 
             # response
             resps = resp_service.get_resp_by_operation(o.id)
+            responses = VO()
+            operation['responses'] = responses
             for rp in resps:
                 response = VO()
-                operation[rp.code] = response
+                responses[rp.code] = response
                 response.description = rp.description
                 response.schema = VO()
                 child_model = model_service.get_model(rp.response_model_id)
