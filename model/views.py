@@ -25,6 +25,11 @@ class ModelEditHandler(application.RequestHandler):
         model = model_service.get_model(model_id)
         self.render('model_add.html', model=model)
 
+    def post(self, model_id, *args, **kwargs):
+        model_service.save_model(self.params)
+        self.params['id'] = model_id
+        self.redirect('/doc/{0}/model/manager'.format(self.params.get('doc_id')))
+
 # 带来源进入模型列表
 @application.RequestMapping("/doc/([0-9]+)/model/manager")
 class ModelManagerHandler(application.RequestHandler):
