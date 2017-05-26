@@ -37,8 +37,9 @@ def get_doc_swagger_json(doc_id):
             props = prop_service.get_props_by_model(model.id)
             m.properties = VO()
             for prop in props:
-                m.properties[prop.name] = VO()
-                dict_copy(prop, m.properties[prop.name], 'type', 'format', 'description')
+                property = VO()
+                m.properties[prop.name] = property
+                dict_copy(prop, property, 'type', 'format', 'description')
 
     # paths
     paths = VO()
