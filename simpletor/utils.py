@@ -168,4 +168,4 @@ def get_request_param(handler):
     return  { k: handler.get_argument(k) for k in handler.request.arguments }
 
 def has_contents(s):
-    return  s is not None and len(s) > 0 and u'None' != s
+    return  s is not None and len(str(s)) > 0 and u'None' != s

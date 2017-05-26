@@ -37,8 +37,8 @@
         <td>{{m.name}}</td>
         <td>{{m.type}}</td>
         <td>
-            <span><a href="/model/{{m.id}}/prop/manager">查看</a></span>
             <span><a href="/model/{{m.id}}?doc_id={{doc_id}}">编辑</a></span>
+            <span><a href="/model/{{m.id}}/prop/manager">查看</a></span>
             {% if resp_id is not None %}
             <form method="post">
                 <!--<input type="hidden" name="resp_id" value="{{resp_id}}">-->

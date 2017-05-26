@@ -29,8 +29,10 @@
         <td>{{op.summary}}</td>
         <td>{{op.description}}</td>
         <td>{{op.tags}}</td>
-        <td><a href="/operation/{{op.id}}">编辑</a></td>
-        <td><a href="/operation/{{op.id}}/manager">查看</a></td>
+        <td>
+            <a href="/operation/{{op.id}}">编辑</a>
+            <a href="/operation/{{op.id}}/manager">查看</a>
+        </td>
         {% end %}
     </tr>
     {% end %}

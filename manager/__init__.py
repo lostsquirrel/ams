@@ -83,32 +83,33 @@ def get_doc_swagger_json(doc_id):
                 responses[rp.code] = response
                 response.description = rp.description
                 response.schema = VO()
-                child_model = model_service.get_model(rp.response_model_id)
-                child_model_name = '#/definitions/{0}'.format(child_model.name)
-                if rp.has_key('wrapper_id') and rp.wrapper_id is not None:
-                    wrapper_model = model_service.get_model(rp.wrapper_id)
-                    wrapper_name = '{0}{1}'.format(child_model.name, wrapper_model.name)
-                    response.schema['$ref'] = '#/definitions/{0}'.format(wrapper_name)
-                    wrapper = res.definitions[wrapper_model.name].copy()
-                    res.definitions[wrapper_name] = wrapper
-                    wrapper_propperties = wrapper['properties']
-                    wrapper_data = VO()
-                    wrapper_propperties['data'] = wrapper_data
-                    wrapper_data['type'] = rp.type
-                    wrapper_data['schema'] = VO()
-                    if 'array' == rp.type:
-                        wrapper_data['schema'].items = VO()
-                        wrapper_data['schema'].items['$ref'] = child_model_name
+                if has_contents(rp.response_model_id):
+                    child_model = model_service.get_model(rp.response_model_id)
+                    child_model_name = '#/definitions/{0}'.format(child_model.name)
+                    if has_contents(rp.wrapper_id):
+                        wrapper_model = model_service.get_model(rp.wrapper_id)
+                        wrapper_name = '{0}{1}'.format(child_model.name, wrapper_model.name)
+                        response.schema['$ref'] = '#/definitions/{0}'.format(wrapper_name)
+                        wrapper = res.definitions[wrapper_model.name].copy()
+                        res.definitions[wrapper_name] = wrapper
+                        wrapper_propperties = wrapper['properties']
+                        wrapper_data = VO()
+                        wrapper_propperties['data'] = wrapper_data
+                        wrapper_data['type'] = rp.type
+                        wrapper_data['schema'] = VO()
+                        if 'array' == rp.type:
+                            wrapper_data['schema'].items = VO()
+                            wrapper_data['schema'].items['$ref'] = child_model_name
+                        else:
+                            wrapper_data['schema']['$ref'] = child_model_name
                     else:
-                        wrapper_data['schema']['$ref'] = child_model_name
-                else:
-                    response.schema.type = rp.type
+                        response.schema.type = rp.type
 
-                    if 'array' == rp.type:
-                        response.schema.items = VO()
-                        response.schema.items['$ref'] = child_model_name
-                    else:
-                        response.schema['$ref'] = child_model_name
+                        if 'array' == rp.type:
+                            response.schema.items = VO()
+                            response.schema.items['$ref'] = child_model_name
+                        else:
+                            response.schema['$ref'] = child_model_name
 
 
     return res

@@ -24,7 +24,7 @@ class RespAddHandler(application.RequestHandler):
         param = get_request_param(self)
         param['operation_id'] = op_id
         resp_service.save_resp(param)
-        self.redirect("/operation/{0}".format(op_id))
+        self.redirect("/operation/{0}/manager".format(op_id))
 
 # 修改响应
 @application.RequestMapping("/doc/([0-9]+)/operation/([0-9]+)/resp/([0-9]+)")
@@ -37,7 +37,7 @@ class RespEditHandler(application.RequestHandler):
         param = get_request_param(self)
         param['id'] = resp_id
         resp_service.update_resp(param)
-        self.redirect('/operation/{0}'.format(op_id))
+        self.redirect('/operation/{0}/manager'.format(op_id))
 
 # 响应详情
 @application.RequestMapping("/doc/([0-9]+)/operation/([0-9]+)/resp/([0-9]+)/manager")
