@@ -10,7 +10,7 @@ export VERSION
 export VERSIONED_IMAGE
 
 code:
-    git pull
+	git pull
 
 push:
 	docker push $(VERSIONED_IMAGE)
