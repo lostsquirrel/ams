@@ -21,7 +21,7 @@ build:
 restart:
 	docker-compose restart
 
-clean:
+clean:cat
 	docker-compose down
 	docker-compose rm --force
 

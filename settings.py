@@ -17,4 +17,4 @@ db_host = 'mariadb_10_1_main'
 pass_code = 'a'
 port = 9000
 swagger_ui_server_url = 'http://192.168.1.139/swagger/ui'
-ams_api_server_url='http://192.168.1.125'
+ams_api_server_url='http://192.168.1.139'
