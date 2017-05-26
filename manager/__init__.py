@@ -91,14 +91,16 @@ def get_doc_swagger_json(doc_id):
                     response.schema['$ref'] = '#/definitions/{0}'.format(wrapper_name)
                     wrapper = res.definitions[wrapper_model.name].copy()
                     res.definitions[wrapper_name] = wrapper
-                    wrapper['data'] = VO()
-                    wrapper['data']['type'] = rp.type
-                    wrapper['data']['schema'] = VO()
+                    wrapper_propperties = wrapper['properties']
+                    wrapper_data = VO()
+                    wrapper_propperties['data'] = wrapper_data
+                    wrapper_data['type'] = rp.type
+                    wrapper_data['schema'] = VO()
                     if 'array' == rp.type:
-                        wrapper['data']['schema'].items = VO()
-                        wrapper['data']['schema'].items['$ref'] = child_model_name
+                        wrapper_data['schema'].items = VO()
+                        wrapper_data['schema'].items['$ref'] = child_model_name
                     else:
-                        wrapper['data']['schema']['$ref'] = child_model_name
+                        wrapper_data['schema']['$ref'] = child_model_name
                 else:
                     response.schema.type = rp.type
 
