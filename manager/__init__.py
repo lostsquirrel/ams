@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from simpletor.utils import dict_slice, dict_copy
+from simpletor.utils import dict_slice, dict_copy, has_contents
 from manager.models import DocVO, VO
 from model import services as model_service
 from prop import services as prop_service
@@ -57,7 +57,21 @@ def get_doc_swagger_json(doc_id):
             if type(operation.tags) != type(list):
                 operation.tags = operation.tags
             #         parameters
-            operation.parameters = param_service.get_params_by_operation(o.id)
+            params = param_service.get_params_by_operation(o.id)
+            for param in params:
+                param.pop('id')
+                param['in'] = param.pop('source')
+                param['required'] = int(param.pop('required')) == 1
+                if not has_contents(param.format):
+                    param.pop('format')
+                if not has_contents(param.default):
+                    param.pop('default')
+                if not has_contents(param.minimum):
+                    param.pop('minimum')
+                if not has_contents(param.maximum):
+                    param.pop('maximum')
+
+            operation.parameters = params
 
             # response
             resps = resp_service.get_resp_by_operation(o.id)
