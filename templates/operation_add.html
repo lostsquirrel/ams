@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>操作添加</title>
+    <script type="text/javascript" src="/static/js/common.js"></script>
 </head>
 <body>
-<form action="/doc/{{doc_id}}/operation" method="post">
-    <input type="hidden" name="api_id" value="{{doc_id}}">
+<form method="post">
+    <input type="hidden" name="doc_id" value="{{doc_id}}" id="doc_id" >
     <table>
         <tr>
             <th>请求地址</th>
-            <td><input type="text" name="path_url" /></td>
+            <td><input type="text" name="path_url" id="path_url" /></td>
             <td>可以重复，但地址和操作组合必须唯一</td>
         </tr>
         <tr>
@@ -30,17 +31,17 @@
         </tr>
         <tr>
             <th>简述</th>
-            <td><input type="text" name="summary"></td>
+            <td><input type="text" name="summary" id="summary"></td>
             <td></td>
         </tr>
         <tr>
             <th>描述</th>
-            <td><input type="text" name="description"></td>
+            <td><input type="text" name="description" id="description"></td>
             <td></td>
         </tr>
         <tr>
             <th>标签</th>
-            <td><input type="text" name="tags"></td>
+            <td><input type="text" name="tags" id="tags"></td>
             <td>swagger 会根据标签分组</td>
         </tr>
         <tr>
@@ -49,5 +50,19 @@
     </table>
 
 </form>
+<script>
+
+    {% try %}
+    var doc = Object()
+    doc.doc_id = {{doc_id}}
+    doc.path_url = "{{path_url}}"
+    doc.operation = "{{operation}}"
+    doc.summary = "{{summary}}"
+    doc.description = "{{description}}"
+    doc.tags = "{{tags}}"
+    refillForm(doc)
+    {% except %}
+    {% end %}
+</script>
 </body>
 </html>

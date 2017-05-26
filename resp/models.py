@@ -34,7 +34,9 @@ class RespDAO(object):
             r.id,
             r.code,
             r.type,
-            r.description
+            r.description,
+            r.response_model_id,
+            r.wrapper_id
             FROM responses r
             WHERE r.operation_id = %s
         '''
@@ -44,7 +46,7 @@ class RespDAO(object):
     @torndb.get
     def find_resp_model(self, model_id):
         sql = '''
-        SELECT id, name, type, model_id FROM response_model WHERE id = %s
+        SELECT id, name, type FROM response_model WHERE id = %s
         '''
         return sql
 

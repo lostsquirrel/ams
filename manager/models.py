@@ -17,6 +17,21 @@ class Doc(torndb.Row):
         self.version = None
         self.produces = None
 
+class DocVO(torndb.Row):
+    def __init__(self):
+        self.swagger = "2.0"
+        self.info = dict()
+        self.host = None
+        self.basePath = None
+        self.tags = list()
+        self.schemes = list()
+        self.paths = dict()
+        self.definitions = dict()
+
+class VO(torndb.Row):
+    def __init__(self):
+        pass
+
 class DocDAO:
 
 
@@ -97,5 +112,12 @@ class DocDAO:
         WHERE id = %(id)s
         '''
         return  sql
+
+    @torndb.select
+    def find_paths_by_doc(self, doc_id):
+        sql = '''
+        SELECT id, path_url FROM paths WHERE doc_id = %s
+        '''
+        return sql
 
 docDAO = DocDAO()

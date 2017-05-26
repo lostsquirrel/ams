@@ -42,7 +42,7 @@ class ParamAddBindHandler(application.RequestHandler):
             param['minimum'] = None
 
         param_service.save_bind_param(param)
-        manager__format = '/operation/{0}'.format(op_id)
+        manager__format = '/operation/{0}/manager'.format(op_id)
         self.redirect(manager__format)
 
 
@@ -66,5 +66,5 @@ class ParamEditHandler(application.RequestHandler):
             param['minimum'] = None
 
         param_service.update_param(param)
-        manager__format = '/operation/{0}'.format(op_id)
+        manager__format = '/operation/{0}/manager'.format(op_id)
         self.redirect(manager__format)

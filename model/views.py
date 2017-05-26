@@ -8,7 +8,7 @@ Created on 2017年5月23日
 
 from simpletor import application
 from model import services as model_service
-
+from resp import services as resp_service
 
 @application.RequestMapping("/model")
 class ModelAddHandler(application.RequestHandler):
@@ -17,7 +17,7 @@ class ModelAddHandler(application.RequestHandler):
 
     def post(self, *args, **kwargs):
         model_service.save_model(self.params)
-        self.redirect('/model/manager')
+        self.redirect('/doc/{0}/model/manager'.format(self.params.get('doc_id')))
 
 @application.RequestMapping("/model/([0-9]+)")
 class ModelEditHandler(application.RequestHandler):
@@ -26,14 +26,22 @@ class ModelEditHandler(application.RequestHandler):
         self.render('model_add.html', model=model)
 
 # 带来源进入模型列表
-@application.RequestMapping("/model/manager")
+@application.RequestMapping("/doc/([0-9]+)/model/manager")
 class ModelManagerHandler(application.RequestHandler):
-    def get(self, *args, **kwargs):
+    def get(self, doc_id, *args, **kwargs):
         params = self.params
         if not params.has_key('resp_id'):
             params['resp_id'] = None
         if not params.has_key('is_wrapper'):
             params['is_wrapper'] = None
-        models = model_service.get_models()
-        self.render('model_manger.html', models=models, **params)
+        if not params.has_key('current_model_id'):
+            params['current_model_id'] = -1
+        models = model_service.get_models(doc_id)
+        self.render('model_manger.html', models=models, doc_id=doc_id, **params)
 
+    def post(self, doc_id, *args, **kwargs):
+        params = self.params
+        resp_service.bind_model_resp(params)
+        np = '/doc/{0}/model/manager'.format(doc_id)
+
+        self.redirect(np)

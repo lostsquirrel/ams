@@ -14,6 +14,7 @@
 </head>
 <body>
 <form action="/model" method="get">
+    <input type="hidden" name="doc_id" value="{{doc_id}}">
     {% if resp_id is not None %}
     <input type="hidden" name="resp_id" value="{{resp_id}}">
     {% end %}
@@ -39,12 +40,15 @@
             <span><a href="/model/{{m.id}}/prop/manager">查看</a></span>
             <span><a href="/model/{{m.id}}">编辑</a></span>
             {% if resp_id is not None %}
-            <form action="" method="post">
-                <input type="hidden" name="resp_id" value="{{resp_id}}">
-                {% if is_wrapper is not None %}
-                <input type="hidden" name="is_wrapper" value="True">
-                {% end %}
+            <form method="post">
+                <!--<input type="hidden" name="resp_id" value="{{resp_id}}">-->
+                <input type="hidden" name="model_id" value="{{m.id}}">
+                <!--{% if is_wrapper is not None %}-->
+                <!--<input type="hidden" name="is_wrapper" value="True">-->
+                <!--{% end %}-->
+                {% if m.id != long(current_model_id) %}
                 <input type="submit" value="选择">
+                {% end %}
             </form>
             {% end %}
         </td>

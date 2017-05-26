@@ -5,6 +5,10 @@
     <title>模型属性</title>
 </head>
 <body>
+<a href="/doc/{{model.doc_id}}/model/{{model.id}}/prop">添加属性</a>
+<p>
+    名称: {{model.name}}
+</p>
 <p>属性列表</p>
 <table border="1" cellspacing="0">
 <tr>
@@ -21,7 +25,7 @@
         <td>{{p.type}}</td>
         <td>{{p.description}}</td>
         <td>{{p.format}}</td>
-        <td><a href="#">编辑</a></td>
+        <td><a href="/doc/{{model.doc_id}}/model/{{model.id}}/prop/{{p.id}}">编辑</a></td>
     </tr>
     {% end %}
 {% end %}

@@ -1,19 +1,22 @@
 # -*- coding:utf-8 -*-
 import tornado
 from simpletor import application
-from operation import services
+
+
+from manager import get_doc_swagger_json
 from api import Api
 
 SUCCESS_ = {"status": "success"}
 
 
-# @application.RequestMapping("/api/item")
-# class ItemsHandler(application.RequestHandler):
-#     '''获取标签列表'''
-#
-#     def get(self):
-#         items = services.get_items()
-#         self.render_json(items)
+@application.RequestMapping("/api/doc/([0-9]+)")
+class DocHandler(application.RequestHandler):
+    '''获取标签列表'''
+    def get(self, doc_id):
+
+        res = get_doc_swagger_json(doc_id)
+
+        self.render_json(res)
 #
 #     @Api(auth=True)
 #     def post(self, *args, **kwargs):

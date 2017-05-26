@@ -9,7 +9,7 @@ class ModelDAO:
     @torndb.insert
     def save_model(self, **item):
         sql = '''
-        INSERT INTO response_model (name, type) VALUES (%(name)s, %(type)s)
+        INSERT INTO response_model (name, type, doc_id) VALUES (%(name)s, %(type)s, %(doc_id)s)
         '''
         return sql
 
@@ -32,16 +32,17 @@ class ModelDAO:
         return sql
 
     @torndb.select
-    def find_models(self):
+    def find_models(self, doc_id):
         sql = '''
-        SELECT id, `name`, type FROM response_model
+        SELECT id, `name`, type, child_model_id FROM response_model
+        WHERE doc_id = %s
         '''
         return sql
 
     @torndb.get
     def find_model(self, model_id):
         sql = '''
-        SELECT id, `name`, type FROM response_model WHERE id = %s
+        SELECT id, `name`, type, doc_id FROM response_model WHERE id = %s
         '''
         return sql
 

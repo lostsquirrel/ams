@@ -10,30 +10,60 @@ def get_op(op_id):
 
 
 def get_ops_by_doc(doc_id):
-    return op_dao.find_ops_by_doc(doc_id)
+    ops = op_dao.find_ops_by_doc(doc_id)
+    split_tags(ops)
+    return ops
 
+def get_ops_by_path(path_id):
+    ops = op_dao.find_ops_by_path(path_id)
+    split_tags(ops)
+    return ops
+
+def split_tags(ops):
+    for op in ops:
+        tags = op.tags
+        tag_list = list()
+        if tags is not None and len(tags) > 0:
+            tag_list = tags.split(',')
+
+        op.tags = tag_list
 
 @transactional
 def save_op(item):
-    u =  dict_slice(item, 'path_url', 'api_id')
-    ep_id = op_dao.save_url(**u)
+    doc_id = item.get('doc_id')
+    u =  dict_slice(item, 'path_url', 'doc_id')
+    exists_op = op_dao.find_url(u['path_url'])
+    ep_id = None
+    if exists_op is None:
+        ep_id = op_dao.save_url(**u)
+    else:
+        ep_id = exists_op.id
 
-    o = dict_slice(item, 'operation', 'summary', 'description')
+    o = dict_slice(item, 'id', 'operation', 'summary', 'description')
     o['path_id'] = ep_id
-    op_id = op_dao.save_operation(**o)
+    op_id = None
+    if o.has_key('id') and o.get('id') is not None:
+        op_dao.update_operation(**o)
+        op_id = o.get('id')
+    else:
+        op_id = op_dao.save_operation(**o)
 
     item['operation_id'] = op_id
     tags = item.get('tags')
+    op_dao.unbind_operation_tag(op_id)
     if tags is not None and len(tags) > 0:
-        for tag in tags.split(','):
-            t = dict(operation_id=op_id, tag=tag)
-            op_dao.save_tag(**t)
+        for tag_name in tags.split(','):
+            tag = op_dao.find_tag_by_doc(doc_id, tag_name)
+            tag_id = None
+            if tag is None:
+                new_tag = dict(tag=tag_name,doc_id=doc_id, description=None)
+                tag_id = op_dao.save_tag(**new_tag)
+            else:
+                tag_id = tag.id
 
-# @transactional
-# def set_default(item_id):
-#     itemDAO.reset_default()
-#     itemDAO.set_default(item_id)
-#
+            op_dao.bind_tag(**dict(tag_id=tag_id, operation_id=op_id))
+
+
 # @transactional
 # def remove_item(item_id):
 #     itemDAO.delete_item(item_id)

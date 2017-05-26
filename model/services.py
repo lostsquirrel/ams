@@ -30,8 +30,9 @@ def save_model(item):
     # else:
     #     resp_dao.bind_model(**item)
 
-def get_models():
-    return model_dao.find_models()
+def get_models(doc_id):
+    return model_dao.find_models(doc_id)
 
 def get_model(model_id):
     return model_dao.find_model(model_id)
+

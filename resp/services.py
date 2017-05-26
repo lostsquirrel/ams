@@ -43,3 +43,11 @@ def save_resp(item):
 @transactional
 def update_resp(item):
     resp_dao.update_resp(**item)
+
+
+@transactional
+def bind_model_resp(item):
+    if item.has_key('is_wrapper') and len(item.get('is_wrapper')) > 0:
+        resp_dao.bind_wrapper(**item)
+    else:
+        resp_dao.bind_model(**item)

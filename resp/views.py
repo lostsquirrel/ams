@@ -11,6 +11,7 @@ from simpletor.utils import get_request_param
 import param.services as param_service
 from operation import services as op_service
 from resp import services as resp_service
+from prop import services as prop_service
 
 # 添加响应
 @application.RequestMapping("/doc/([0-9]+)/operation/([0-9]+)/resp")
@@ -48,14 +49,14 @@ class RespDetailHandler(application.RequestHandler):
         model_props = []
         if model_id is not None:
             model = resp_service.get_resp_model(model_id)
-            model_props = resp_service.get_model_props(model.model_id)
+            model_props = prop_service.get_props_by_model(model.id)
 
         wrapper = None
         wrapper_props = []
         wrapper_id = resp.wrapper_id
         if wrapper_id is not None:
             wrapper = resp_service.get_resp_model(wrapper_id)
-            wrapper_props = resp_service.get_model_props(wrapper.model_id)
+            wrapper_props = prop_service.get_props_by_model(wrapper.id)
 
         self.render('resp_manager.html', doc_id=doc_id,
                     op_id=op_id,

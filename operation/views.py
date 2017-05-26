@@ -20,9 +20,9 @@ class OperationHandler(application.RequestHandler):
     def post(self, doc_id, *args, **kwargs):
         param = get_request_param(self)
         op_service.save_op(param)
-        self.redirect('/doc/{0}'.format(doc_id))
+        self.redirect('/doc/{0}/path/manager'.format(doc_id))
 
-@application.RequestMapping("/operation/([0-9]+)")
+@application.RequestMapping("/operation/([0-9]+)/manager")
 class OperationDetailHandler(application.RequestHandler):
     def get(self, op_id):
         op = op_service.get_op(op_id)
@@ -30,11 +30,18 @@ class OperationDetailHandler(application.RequestHandler):
         resp = resp_service.get_resp_by_operation(op_id)
         self.render('operation_detail.html', params=params, resp=resp, operation=op)
 
-# @application.RequestMapping("/chart")
-# class ChartHandler(application.RequestHandler):
-#     def get(self):
-#         self.render('k_line_chart.html')
+@application.RequestMapping("/operation/([0-9]+)")
+class OperationEditHandler(application.RequestHandler):
+    def get(self, op_id):
+        op = op_service.get_op(op_id)
+        if type(op.tags) == type(list()):
+            op.tags = ','.join(op.tags)
+        self.render('operation_add.html', **op)
 #
+    def post(self, op_id , *args, **kwargs):
+        self.params['id'] = op_id
+        op_service.save_op(self.params)
+        self.redirect('/doc/{0}/path/manager'.format(self.params['doc_id']))
 # @application.RequestMapping("/")
 # class IndexHandler(application.RequestHandler):
 #     def get(self):

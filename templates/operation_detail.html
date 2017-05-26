@@ -44,18 +44,14 @@
 
 <table border="1" cellspacing="0">
 <tr>
-    <th>ID</th>
     <th>响应码</th>
-    <th>响应对象类型</th>
     <th>描述</th>
     <th>操作</th>
 </tr>
 {% for r in resp %}
     {% block r %}
     <tr>
-        <td>{{r.id}}</td>
         <td>{{r.code}}</td>
-        <td>{{r.type}}</td>
         <td>{{r.description}}</td>
         <td>
             <a href="/doc/{{operation.doc_id}}/operation/{{operation.id}}/resp/{{r.id}}">编辑</a>

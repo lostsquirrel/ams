@@ -6,7 +6,7 @@
     <script type="text/javascript" src="/static/js/common.js"></script>
 </head>
 <body>
-<form action="/model" method="post">
+<form method="post">
     {% try %}
         {% if resp_id is not None  %}
             <input type="hidden" id="resp_id" name="resp_id" value="{{resp_id}}">

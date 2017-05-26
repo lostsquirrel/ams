@@ -87,7 +87,7 @@ class ParamDAO(object):
             op.maximum
             FROM operation_parameter op 
             JOIN path_operation o on op.operation_id = o.id
-            JOIN paths p on p.path_id = o.path_id AND p.api_id = %s            
+            JOIN paths p on p.path_id = o.path_id AND p.doc_id = %s            
         '''
         return sql
 
