@@ -85,16 +85,18 @@ def get_doc_swagger_json(doc_id):
                 child_model_name = '#/definitions/{0}'.format(child_model.name)
                 if rp.has_key('wrapper_id') and rp.wrapper_id is not None:
                     wrapper_model = model_service.get_model(rp.wrapper_id)
-                    response.schema['$ref'] = '#/definitions/{0}'.format(wrapper_model.name)
-                    w = res.definitions[wrapper_model.name].properties
-                    w.data = VO()
-                    w.data.type = rp.type
-                    w.data.schema = VO()
+                    wrapper_name = '{0}{1}'.format(child_model.name, wrapper_model.name)
+                    response.schema['$ref'] = '#/definitions/{0}'.format(wrapper_name)
+                    wrapper = res.definitions[wrapper_model.name].copy()
+                    res.definitions[wrapper_name] = wrapper
+                    wrapper['data'] = VO()
+                    wrapper['data']['type'] = rp.type
+                    wrapper['data']['schema'] = VO()
                     if 'array' == rp.type:
-                        w.data.schema.items = VO()
-                        w.data.schema.items['$ref'] = child_model_name
+                        wrapper['data']['schema'].items = VO()
+                        wrapper['data']['schema'].items['$ref'] = child_model_name
                     else:
-                        w.data.schema['$ref'] = child_model_name
+                        wrapper['data']['schema']['$ref'] = child_model_name
                 else:
                     response.schema.type = rp.type
 
