@@ -23,7 +23,7 @@ class ModelAddHandler(application.RequestHandler):
 class ModelEditHandler(application.RequestHandler):
     def get(self, model_id, *args, **kwargs):
         model = model_service.get_model(model_id)
-        self.render('model_add.html', model=model)
+        self.render('model_add.html', model=model, **self.params)
 
     def post(self, model_id, *args, **kwargs):
         model_service.save_model(self.params)
