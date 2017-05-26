@@ -16,7 +16,7 @@ def get_doc_swagger_json(doc_id):
     res.basePath = doc.base_path
     res.schemes = [x.strip() for x in doc.schemes.split(',')]
     res.info = dict_slice(doc, 'title', 'version', 'description')
-
+    res.produces = [doc.produces]
     # definitions
     definitions = VO()
     res.definitions = definitions
