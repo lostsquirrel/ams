@@ -9,8 +9,6 @@ VERSIONED_IMAGE=$(IMAGE):$(VERSION_TAG)
 export VERSION
 export VERSIONED_IMAGE
 
-code:
-	git pull
 
 push:
 	docker push $(VERSIONED_IMAGE)
