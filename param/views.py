@@ -57,12 +57,12 @@ class ParamEditHandler(application.RequestHandler):
         param['id'] = param_id
         param['operation_id'] = op_id
         param_type = param['type']
-        isNum = 'integer' == param_type or 'number' == param_type
+        isNotNum = not ('integer' == param_type or 'number' == param_type)
         maximum = param.get('maximum')
-        if isNum or len(maximum) == 0 or 'None' == maximum:
+        if isNotNum or len(maximum) == 0 or 'None' == maximum:
             param['maximum'] = None
         minimum = param.get('minimum')
-        if isNum or len(minimum) == 0 or 'None' == minimum:
+        if isNotNum or len(minimum) == 0 or 'None' == minimum:
             param['minimum'] = None
 
         param_service.update_param(param)
