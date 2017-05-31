@@ -40,7 +40,16 @@ def get_doc_swagger_json(doc_id):
                 property = VO()
                 m.properties[prop.name] = property
                 dict_copy(prop, property, 'type', 'format', 'description')
-
+                if prop.prop_model_id is not None:
+                    prop_model = model_service.get_model(prop.prop_model_id)
+                if prop.type == 'object':
+                    property_schema = VO()
+                    property.schema = property_schema
+                    property_schema['$ref'] = '#/definitions/{0}'.format(prop_model.name)
+                elif prop.type == 'array':
+                    property_item = VO()
+                    property.items = property_item
+                    property_item['$ref'] = '#/definitions/{0}'.format(prop_model.name)
     # paths
     paths = VO()
     res.paths = paths

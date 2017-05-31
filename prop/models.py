@@ -60,10 +60,17 @@ class PropDAO:
         type,
         format,
         description,
+        prop_model_id,
         model_id
         FROM response_model_prop
         WHERE model_id = %s
         '''
         return sql
 
+    @torndb.update
+    def bind_model(self, **item):
+        sql = '''
+        UPDATE response_model_prop SET prop_model_id = %(model_id)s WHERE id = %(prop_id)s
+        '''
+        return sql
 prop_dao = PropDAO()

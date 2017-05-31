@@ -18,3 +18,7 @@ def get_props_by_model(model_id):
 @transactional
 def update_prop(item):
     prop_dao.update_prop(**item)
+
+@transactional
+def bind_model(item):
+    prop_dao.bind_model(**item)

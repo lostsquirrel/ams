@@ -25,7 +25,17 @@
         <td>{{p.type}}</td>
         <td>{{p.description}}</td>
         <td>{{p.format}}</td>
-        <td><a href="/doc/{{model.doc_id}}/model/{{model.id}}/prop/{{p.id}}">编辑</a></td>
+        <td>
+            <a href="/doc/{{model.doc_id}}/model/{{model.id}}/prop/{{p.id}}">编辑</a>
+            {% if p.type in ['array', 'object'] %}
+                {% if p.prop_model_id is not None %}
+                <a href="/doc/{{model.doc_id}}/model/manager?prop_id={{p.id}}&current_model_id={{p.prop_model_id}}">重新选择</a>
+                <a href="/model/{{p.prop_model_id}}/prop/manager">查看</a>
+                {% else %}
+                <a href="/doc/{{model.doc_id}}/model/manager?prop_id={{p.id}}">选择</a>
+                {% end %}
+            {% end %}
+        </td>
     </tr>
     {% end %}
 {% end %}

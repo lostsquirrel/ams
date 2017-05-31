@@ -8,6 +8,7 @@ Created on 2017年5月23日
 
 from simpletor import application
 from model import services as model_service
+from prop import services as prop_service
 from resp import services as resp_service
 
 @application.RequestMapping("/model")
@@ -37,6 +38,8 @@ class ModelManagerHandler(application.RequestHandler):
         params = self.params
         if not params.has_key('resp_id'):
             params['resp_id'] = None
+        if not params.has_key('prop_id'):
+            params['prop_id'] = None
         if not params.has_key('is_wrapper'):
             params['is_wrapper'] = None
         if not params.has_key('current_model_id'):
@@ -46,7 +49,11 @@ class ModelManagerHandler(application.RequestHandler):
 
     def post(self, doc_id, *args, **kwargs):
         params = self.params
-        resp_service.bind_model_resp(params)
+        if params.has_key('prop_id') and params.get('prop_id') is not None:
+            prop_service.bind_model(params)
+        else:
+            resp_service.bind_model_resp(params)
+
         np = '/doc/{0}/model/manager'.format(doc_id)
 
         self.redirect(np)
