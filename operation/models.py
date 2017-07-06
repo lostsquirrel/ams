@@ -85,11 +85,13 @@ class OperationDAO:
             operation,
             path_id,
             summary,
+            secure,
             description
         ) VALUE (
             %(operation)s,
             %(path_id)s,
             %(summary)s,
+            %(secure)s,
             %(description)s
         )
         '''
@@ -101,7 +103,8 @@ class OperationDAO:
             SELECT 
             o.operation, 
             o.summary, 
-            o.description, 
+            o.description,
+            o.secure,
             o.id, 
             o.path_id, 
             p.path_url, 
@@ -137,7 +140,7 @@ class OperationDAO:
     @torndb.get
     def find_op(self, op_id):
         sql = '''
-        SELECT po.id, operation, path_id, p.path_url, summary, description, p.doc_id,
+        SELECT po.id, operation, path_id, p.path_url, summary, description, p.doc_id, po.secure,
         (SELECT group_concat(tag) FROM tags t JOIN operation_tag ot ON t.id = ot.tag_id WHERE ot.operation_id = po.id) AS tags
         FROM path_operation po
         JOIN paths p ON po.path_id = p.id AND po.id = %s
@@ -158,6 +161,7 @@ class OperationDAO:
         operation = %(operation)s,
         path_id = %(path_id)s,
         summary = %(summary)s,
+        secure = %(secure)s,
         description = %(description)s
         WHERE id = %(id)s
         '''

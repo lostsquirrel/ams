@@ -7,11 +7,11 @@
 </head>
 <body>
 <form method="post">
-    <input type="hidden" name="doc_id" value="{{doc_id}}" id="doc_id" >
+    <input type="hidden" name="doc_id" value="{{doc_id}}" id="doc_id">
     <table>
         <tr>
             <th>请求地址</th>
-            <td><input type="text" name="path_url" id="path_url" /></td>
+            <td><input type="text" name="path_url" id="path_url"/></td>
             <td>可以重复，但地址和操作组合必须唯一</td>
         </tr>
         <tr>
@@ -40,6 +40,15 @@
             <td></td>
         </tr>
         <tr>
+            <th>安全验证</th>
+            <td><select name="secure" id="secure">
+                <option value="0">无</option>
+                <option value="1">token</option>
+            </select>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
             <th>标签</th>
             <td><input type="text" name="tags" id="tags"></td>
             <td>swagger 会根据标签分组</td>
@@ -58,11 +67,13 @@
     doc.path_url = "{{path_url}}"
     doc.operation = "{{operation}}"
     doc.summary = "{{summary}}"
+    doc.secure = "{{secure}}"
     doc.description = "{{description}}"
     doc.tags = "{{tags}}"
     refillForm(doc)
     {% except %}
     {% end %}
+
 </script>
 </body>
 </html>

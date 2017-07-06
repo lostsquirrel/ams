@@ -39,7 +39,7 @@ def save_op(item):
     else:
         ep_id = exists_op.id
 
-    o = dict_slice(item, 'id', 'operation', 'summary', 'description')
+    o = dict_slice(item, 'id', 'operation', 'summary', 'description', 'secure')
     o['path_id'] = ep_id
     op_id = None
     if o.has_key('id') and o.get('id') is not None:

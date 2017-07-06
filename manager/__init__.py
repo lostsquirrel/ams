@@ -17,6 +17,13 @@ def get_doc_swagger_json(doc_id):
     res.schemes = [x.strip() for x in doc.schemes.split(',')]
     res.info = dict_slice(doc, 'title', 'version', 'description')
     res.produces = [doc.produces]
+    secure = VO()
+    secureToken = VO()
+    secureToken.type = "apiKey"
+    secureToken.name = "Authorization"
+    secureToken['in'] = "header"
+    secure.Bearer = secureToken
+    res.securityDefinitions = secure
     # definitions
     definitions = VO()
     res.definitions = definitions
@@ -61,6 +68,9 @@ def get_doc_swagger_json(doc_id):
         ops = op_service.get_ops_by_path(p.id)
         for o in ops:
             operation = VO()
+            security = list()
+            security.append(dict(Bearer=list()))
+            operation.security = security
             path[o.operation] = operation
 
             dict_copy(o, operation, 'tags', 'summary', 'description')
