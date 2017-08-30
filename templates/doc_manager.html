@@ -34,7 +34,7 @@
                 <a href="/doc/{{ item.id }}/path/manager">查看接口方法</a>
                 <a href="/doc/{{ item.id }}/model/manager">查看响应模型</a>
                 {% import settings %}
-                <a href="{{settings.swagger_ui_server_url}}/?url={{settings.ams_api_server_url}}/api/doc/{{item.id}}" target="_blank">查看文档</a>
+                <a href="{{settings.swagger_ui_server_url}}/?url={{settings.ams_api_server_url}}/swagger/doc/{{item.id}}" target="_blank">查看文档</a>
 
             </td>
             {% end %}
