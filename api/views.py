@@ -9,7 +9,7 @@ from api import Api
 SUCCESS_ = {"status": "success"}
 
 
-@application.RequestMapping("/api/doc/([0-9]+)")
+@application.RequestMapping("/doc/swagger/([0-9]+)")
 class DocHandler(application.RequestHandler):
     '''获取标签列表'''
     def get(self, doc_id):
