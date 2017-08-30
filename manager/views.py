@@ -15,7 +15,7 @@ class DocMangerHandler(application.RequestHandler):
     def get(self):
         self.render('doc_manager.html', items=doc_service.get_docs())
 
-@application.RequestMapping("/doc")
+@application.RequestMapping("/doc/add")
 class DocAddHandler(application.RequestHandler):
     def get(self):
         self.render('doc_add.html')
@@ -23,7 +23,7 @@ class DocAddHandler(application.RequestHandler):
     def post(self, *args, **kwargs):
         param = get_request_param(self)
         doc_service.save_doc(param)
-        self.redirect('/doc/manager')\
+        self.redirect('/doc/manager')
 
 @application.RequestMapping("/doc/([0-9]+)")
 class DocEditHandler(application.RequestHandler):
