@@ -9,7 +9,7 @@ def get_doc(doc_id):
 
 @transactional
 def save_doc(item):
-    if item.has_key('id') and item.get('id') is not None:
+    if item.has_key('id') and item.get('id') is not None and len(item.get('id')) > 0:
         docDAO.update(**item)
     else:
         docDAO.save(**item)
