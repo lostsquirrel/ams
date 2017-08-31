@@ -30,7 +30,7 @@
             {% if p.type in ['array', 'object'] %}
                 {% if p.prop_model_id is not None %}
                 <a href="/doc/{{model.doc_id}}/model/manager?prop_id={{p.id}}&current_model_id={{p.prop_model_id}}">重新选择</a>
-                <a href="/model/{{p.prop_model_id}}/prop/manager">查看</a>
+                <a href="/model/{{p.prop_model_id}}/prop/manager"  target="_blank">查看</a>
                 {% else %}
                 <a href="/doc/{{model.doc_id}}/model/manager?prop_id={{p.id}}">选择</a>
                 {% end %}
