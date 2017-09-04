@@ -54,7 +54,7 @@
 {% if model is None %}
 <a href="/doc/{{doc_id}}/model/manager?resp_id={{resp.id}}">选择响应模型</a>
 {% else %}
-<p>包装类名称: {{model.name}}
+<p>名称: {{model.name}}
 </p>
 <a href="/doc/{{doc_id}}/model/manager?resp_id={{resp.id}}&&current_model_id={{model.id}}">重新选择</a>
 <a href="/doc/{{doc_id}}/operation/{{op_id}}/resp/{{resp.id}}/model/{{model.id}}/prop">添加类属性</a>
@@ -76,7 +76,7 @@
         <td>{{p.type}}</td>
         <td>{{p.description}}</td>
         <td>{{p.format}}</td>
-        <td><a href="/doc/{{doc_id}}/operation/{{op_id}}/resp/{{resp.id}}/model/{{wrapper.id}}/prop/{{p.id}}">编辑</a></td>
+        <td><a href="/doc/{{doc_id}}/operation/{{op_id}}/resp/{{resp.id}}/model/{{model.id}}/prop/{{p.id}}">编辑</a></td>
     </tr>
     {% end %}
 {% end %}
