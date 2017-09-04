@@ -125,8 +125,9 @@ def get_doc_swagger_json(doc_id):
                         response.schema.type = rp.type
 
                         if 'array' == rp.type:
-                            response.schema.items = VO()
-                            response.schema.items['$ref'] = child_model_name
+                            schema_items = VO()
+                            response.schema.items = schema_items
+                            schema_items['$ref'] = child_model_name
                         else:
                             response.schema['$ref'] = child_model_name
 
