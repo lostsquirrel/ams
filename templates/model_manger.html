@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<form action="/model" method="get">
+<form action="/doc/model" method="get">
     <input type="hidden" name="doc_id" value="{{doc_id}}">
     {% if resp_id is not None %}
     <input type="hidden" name="resp_id" value="{{resp_id}}">
@@ -37,8 +37,8 @@
         <td>{{m.name}}</td>
         <td>{{m.type}}</td>
         <td>
-            <span><a href="/model/{{m.id}}?doc_id={{doc_id}}">编辑</a></span>
-            <span><a href="/model/{{m.id}}/prop/manager"  target="_blank">查看</a></span>
+            <span><a href="/doc/model/{{m.id}}?doc_id={{doc_id}}">编辑</a></span>
+            <span><a href="/doc/model/{{m.id}}/prop/manager"  target="_blank">查看</a></span>
             {% if resp_id is not None or prop_id is not None %}
             <form method="post">
                 <!--<input type="hidden" name="resp_id" value="{{resp_id}}">-->

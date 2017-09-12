@@ -11,7 +11,7 @@ from model import services as model_service
 from prop import services as prop_service
 from resp import services as resp_service
 
-@application.RequestMapping("/model")
+@application.RequestMapping("/doc/model")
 class ModelAddHandler(application.RequestHandler):
     def get(self, *args, **kwargs):
         self.render('model_add.html', model=None, **self.params)
@@ -20,7 +20,7 @@ class ModelAddHandler(application.RequestHandler):
         model_service.save_model(self.params)
         self.redirect('/doc/{0}/model/manager'.format(self.params.get('doc_id')))
 
-@application.RequestMapping("/model/([0-9]+)")
+@application.RequestMapping("/doc/model/([0-9]+)")
 class ModelEditHandler(application.RequestHandler):
     def get(self, model_id, *args, **kwargs):
         model = model_service.get_model(model_id)

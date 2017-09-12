@@ -22,7 +22,7 @@ class OperationHandler(application.RequestHandler):
         op_service.save_op(param)
         self.redirect('/doc/{0}/path/manager'.format(doc_id))
 
-@application.RequestMapping("/operation/([0-9]+)/manager")
+@application.RequestMapping("/doc/operation/([0-9]+)/manager")
 class OperationDetailHandler(application.RequestHandler):
     def get(self, op_id):
         op = op_service.get_op(op_id)
@@ -30,7 +30,7 @@ class OperationDetailHandler(application.RequestHandler):
         resp = resp_service.get_resp_by_operation(op_id)
         self.render('operation_detail.html', params=params, resp=resp, operation=op)
 
-@application.RequestMapping("/operation/([0-9]+)")
+@application.RequestMapping("/doc/operation/([0-9]+)")
 class OperationEditHandler(application.RequestHandler):
     def get(self, op_id):
         op = op_service.get_op(op_id)

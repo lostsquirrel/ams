@@ -19,9 +19,9 @@ class PropAddHandler(application.RequestHandler):
     def post(self, doc_id, model_id, *args, **kwargs):
         self.params['model_id'] = model_id
         prop_service.save_prop(self.params)
-        self.redirect('/model/{0}/prop/manager'.format(model_id))
+        self.redirect('/doc/model/{0}/prop/manager'.format(model_id))
 
-@application.RequestMapping("/model/([0-9]+)/prop/manager")
+@application.RequestMapping("/doc/model/([0-9]+)/prop/manager")
 class PropManageHandler(application.RequestHandler):
     def get(self, model_id, *args, **kwargs):
         model = model_service.get_model(model_id)
@@ -37,4 +37,4 @@ class PropEditHandler(application.RequestHandler):
     def post(self, doc_id, model_id, prop_id, *args, **kwargs):
         self.params['id'] = prop_id
         prop_service.update_prop(self.params)
-        self.redirect('/model/{0}/prop/manager'.format(model_id))
+        self.redirect('/doc/model/{0}/prop/manager'.format(model_id))
