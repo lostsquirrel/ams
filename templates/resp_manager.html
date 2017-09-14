@@ -15,6 +15,7 @@
 <h2>包装类</h2>
 <p>如果有包装类，响应对象最终为包装类，包装类data属性为 响应模型</p>
 <p>暂定包装类只能是object</p>
+
 {% if wrapper is None %}
 <a href="/doc/{{doc_id}}/model/manager?resp_id={{resp.id}}&&is_wrapper=True">选择包装模型</a>
 {% else %}
@@ -26,15 +27,16 @@
 <a href="#">添加属性</a>
 </span>
 {% end %}
+
 <p>&nbsp;</p>
 <p>属性列表....</p>
-<table border="1" cellspacing="0">
+<table border="1" cellspacing="0" id="wrapper_props_table">
 <tr>
     <th>属性名</th>
     <th>类型</th>
     <th>描述</th>
     <th>格式</th>
-    <th>操作</th>
+    <th>操作x</th>
 </tr>
 {% for p in wrapper_props %}
     {% block p %}
@@ -43,10 +45,10 @@
         <td>{{p.type}}</td>
         <td>{{p.description}}</td>
         <td>{{p.format}}</td>
-        <td><a href="/doc/{{doc_id}}/operation/{{op_id}}/resp/{{resp.id}}/model/{{wrapper.id}}/prop/{{p.id}}">编辑</a></td>
     </tr>
     {% end %}
 {% end %}
+
 </table>
 
 <hr>
@@ -60,8 +62,9 @@
 <a href="/doc/{{doc_id}}/operation/{{op_id}}/resp/{{resp.id}}/model/{{model.id}}/prop">添加类属性</a>
 {% end %}
 
+
 <p>属性列表</p>
-<table border="1" cellspacing="0">
+<table border="1" cellspacing="0" id="model_props_table">
 <tr>
     <th>属性名</th>
     <th>类型</th>
@@ -76,10 +79,13 @@
         <td>{{p.type}}</td>
         <td>{{p.description}}</td>
         <td>{{p.format}}</td>
-        <td><a href="/doc/{{doc_id}}/operation/{{op_id}}/resp/{{resp.id}}/model/{{model.id}}/prop/{{p.id}}">编辑</a></td>
+
     </tr>
     {% end %}
 {% end %}
+
 </table>
+
+
 </body>
 </html>
