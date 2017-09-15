@@ -117,8 +117,9 @@ def get_doc_swagger_json(doc_id):
                         wrapper_data['type'] = rp.type
                         wrapper_data['schema'] = VO()
                         if 'array' == rp.type:
-                            wrapper_data['schema'].items = VO()
-                            wrapper_data['schema'].items['$ref'] = child_model_name
+                            wrapper_items = VO()
+                            wrapper_data['schema']['items'] = wrapper_items
+                            wrapper_items['$ref'] = child_model_name
                         else:
                             wrapper_data['schema']['$ref'] = child_model_name
                     else:
