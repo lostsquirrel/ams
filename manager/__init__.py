@@ -101,27 +101,34 @@ def get_doc_swagger_json(doc_id):
                 response = VO()
                 responses[rp.code] = response
                 response.description = rp.description
-                response.schema = VO()
+                response_schema = VO()
+                response.schema = response_schema
                 if has_contents(rp.response_model_id):
                     child_model = model_service.get_model(rp.response_model_id)
                     child_model_name = '#/definitions/{0}'.format(child_model.name)
                     if has_contents(rp.wrapper_id):
                         wrapper_model = model_service.get_model(rp.wrapper_id)
                         wrapper_name = '{0}{1}'.format(child_model.name, wrapper_model.name)
-                        response.schema['$ref'] = '#/definitions/{0}'.format(wrapper_name)
+
+                        response_schema.type = rp.type
                         wrapper = res.definitions[wrapper_model.name].copy()
                         res.definitions[wrapper_name] = wrapper
-                        wrapper_propperties = wrapper['properties']
+                        wrapper_properties = wrapper['properties']
                         wrapper_data = VO()
-                        wrapper_propperties['data'] = wrapper_data
+                        wrapper_properties['data'] = wrapper_data
                         wrapper_data['type'] = rp.type
                         wrapper_data['schema'] = VO()
+                        response_ref = '#/definitions/{0}'.format(wrapper_name)
                         if 'array' == rp.type:
                             wrapper_items = VO()
                             wrapper_data['schema']['items'] = wrapper_items
                             wrapper_items['$ref'] = child_model_name
+                            response_items = VO()
+                            response_schema.items = response_items
+                            response_items['$ref'] = response_ref
                         else:
                             wrapper_data['schema']['$ref'] = child_model_name
+                            response_schema['$ref'] = response_ref
                     else:
                         response.schema.type = rp.type
 
