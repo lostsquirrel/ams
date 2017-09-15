@@ -110,34 +110,36 @@ def get_doc_swagger_json(doc_id):
                         wrapper_model = model_service.get_model(rp.wrapper_id)
                         wrapper_name = '{0}{1}'.format(child_model.name, wrapper_model.name)
 
-                        response_schema.type = rp.type
+                        response_schema.type = 'object'
                         wrapper = res.definitions[wrapper_model.name].copy()
                         res.definitions[wrapper_name] = wrapper
                         wrapper_properties = wrapper['properties']
                         wrapper_data = VO()
                         wrapper_properties['data'] = wrapper_data
-                        wrapper_data['type'] = rp.type
-                        wrapper_data['schema'] = VO()
+
+                        wrapper_schema = VO()
+                        wrapper_data['schema'] = wrapper_schema
+                        wrapper_schema.type = rp.type
                         response_ref = '#/definitions/{0}'.format(wrapper_name)
                         if 'array' == rp.type:
                             wrapper_items = VO()
-                            wrapper_data['schema']['items'] = wrapper_items
+                            wrapper_schema['items'] = wrapper_items
                             wrapper_items['$ref'] = child_model_name
                             response_items = VO()
                             response_schema.items = response_items
                             response_items['$ref'] = response_ref
                         else:
-                            wrapper_data['schema']['$ref'] = child_model_name
+                            wrapper_schema['$ref'] = child_model_name
                             response_schema['$ref'] = response_ref
                     else:
-                        response.schema.type = rp.type
+                        response_schema.type = rp.type
 
                         if 'array' == rp.type:
                             schema_items = VO()
-                            response.schema.items = schema_items
+                            response_schema.items = schema_items
                             schema_items['$ref'] = child_model_name
                         else:
-                            response.schema['$ref'] = child_model_name
+                            response_schema['$ref'] = child_model_name
 
 
     return res
