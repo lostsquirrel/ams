@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 
+import copy
 from simpletor.utils import dict_slice, dict_copy, has_contents
 from manager.models import DocVO, VO
 from model import services as model_service
@@ -60,7 +61,6 @@ def get_doc_swagger_json(doc_id):
     # paths
     paths = VO()
     res.paths = paths
-
     ps = mgr_service.get_paths_by_doc(doc_id)
     for p in ps:
         path = VO()
@@ -109,9 +109,8 @@ def get_doc_swagger_json(doc_id):
                     if has_contents(rp.wrapper_id):
                         wrapper_model = model_service.get_model(rp.wrapper_id)
                         wrapper_name = '{0}{1}'.format(child_model.name, wrapper_model.name)
-
                         response_schema.type = 'object'
-                        wrapper = res.definitions[wrapper_model.name].copy()
+                        wrapper = copy.deepcopy(res.definitions[wrapper_model.name])
                         res.definitions[wrapper_name] = wrapper
                         wrapper_properties = wrapper['properties']
                         wrapper_data = VO()
@@ -128,7 +127,6 @@ def get_doc_swagger_json(doc_id):
                             wrapper_items['$ref'] = child_model_name
                         else:
                             wrapper_schema['$ref'] = child_model_name
-
                     else:
                         response_schema.type = rp.type
 
@@ -138,6 +136,4 @@ def get_doc_swagger_json(doc_id):
                             schema_items['$ref'] = child_model_name
                         else:
                             response_schema['$ref'] = child_model_name
-
-
     return res
